@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useContext, createContext } from "react";
+import { useCounter } from './hook';
+
+
+
+
+
+
+
+
+const Counter = createContext();
+
+function CounterDisplay() {
+  const counter = useContext(Counter);
+  return (
+    <div>
+      <button onClick={counter.decrement}>-</button>
+      <span>{counter.count}</span>
+      <button onClick={counter.increment}>+</button>
+    </div>
+  );
+}
+
+function Test() {
+  return <div>test</div>
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Counter.Provider value={useCounter()}>
+      <div>
+        <CounterDisplay />
+        <Test />
+      </div>
+    </Counter.Provider>
   );
 }
 
